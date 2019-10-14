@@ -13,7 +13,24 @@ private:
     vector<string> postfix_exp;
 
     bool isOperand(char C){
-        return C >= '0' && C <= '9';
+        //return C >= '0' && C <= '9';
+        if(C >= '0' && C <= '9') return true;
+        if(C >= 'a' && C <= 'z') return true;
+        if(C >= 'A' && C <= 'Z') return true;
+        return false;
+    }
+
+    int convertOperandToInt(string C){
+        int num_operand;
+        if(C >= "0" && C <= "9"){
+            num_operand = stoi(C);
+            return num_operand;
+        }
+        if((C >= "a" && C <= "z") || (C >= "A" && C <= "Z")){
+            cout << "Ingresa un numero para la variable '" << C << "' : ";
+            cin >> num_operand;
+            return num_operand;
+        }
     }
 
     bool isOperator(char C){
@@ -33,7 +50,9 @@ private:
     int solver(){
         for(const auto& element : postfix_exp){
             if(isOperand(element[0])){
-                int number_element = stoi(element); //convert the string to number and then push
+                //cout << "Operando: " << element[0] << '\n';
+                //int number_element = stoi(element); //convert the string to number and then push
+                int number_element = convertOperandToInt(element);
                 op_numbers.push(number_element);
             }
             else if(isOperator(element[0])){
