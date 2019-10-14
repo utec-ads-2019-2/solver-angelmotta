@@ -4,12 +4,13 @@
 #include <iostream>
 #include <stack>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
 class PostfixEvaluation{
 private:
-    stack<int> op_numbers;
+    stack<float> op_numbers;
     vector<string> postfix_exp;
 
     bool isOperand(char C){
@@ -31,6 +32,7 @@ private:
             cin >> num_operand;
             return num_operand;
         }
+        return -1;
     }
 
     bool isOperator(char C){
@@ -38,16 +40,17 @@ private:
     }
 
     // Function to perform an operation and return output.
-    int executeOperation(char operation, int operand1, int operand2){
+    float executeOperation(char operation, float operand1, float operand2){
         if(operation == '+') return operand1 +operand2;
         else if(operation == '-') return operand1 - operand2;
         else if(operation == '*') return operand1 * operand2;
         else if(operation == '/') return operand1 / operand2;
+        else if(operation == '^') return pow(operand1,operand2);
         else cout<<"Unexpected Error \n";
         return -1;
     }
 
-    int solver(){
+    float solver(){
         for(const auto& element : postfix_exp){
             if(isOperand(element[0])){
                 //cout << "Operando: " << element[0] << '\n';
@@ -56,11 +59,11 @@ private:
                 op_numbers.push(number_element);
             }
             else if(isOperator(element[0])){
-                int operand2 = op_numbers.top();
+                auto operand2 = op_numbers.top();
                 op_numbers.pop();
-                int operand1 = op_numbers.top();
+                auto operand1 = op_numbers.top();
                 op_numbers.pop();
-                int res = executeOperation(element[0], operand1, operand2);
+                auto res = executeOperation(element[0], operand1, operand2);
                 // Push back the result to the stack of number
                 op_numbers.push(res);
             }
@@ -73,7 +76,7 @@ public:
     PostfixEvaluation()= default;
     PostfixEvaluation(vector<string> vec_postfix) : postfix_exp(vec_postfix){}
 
-    int get_result(){
+    float get_result(){
         return solver();
     }
 };
