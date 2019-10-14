@@ -3,4 +3,4 @@ project(solver)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(solver main.cpp ConverterToPostfix.h)
+add_executable(solver main.cpp ConverterToPostfix.h PostfixEvaluation.h)

@@ -129,11 +129,10 @@ public:
     Converter() : expression(""){}
     Converter(string _expression) : expression(_expression){}
 
-    vector<string> get_result(){
+    vector<string> get_postfix(){
         // Invocar metodos privados
         InfixToPostfix();
         return postfix_exp;
-        //return expression;
     };
 };
 #endif //SOLVER_CONVERTERTOPOSTFIX_H
